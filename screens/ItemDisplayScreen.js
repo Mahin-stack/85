@@ -6,15 +6,16 @@ import db from '../config'
 import MyHeader from '../components/MyHeader';
 
 export default class ItemDisplayScreen extends Component{
-    constructor(){
-        super()
-        this.state = {
-          userId  : firebase.auth().currentUser.email,
-          requestedItemsList : []
-        }
-        this.requestRef= null
-      }
-    getRequestedItemsList =()=>{
+  constructor(){
+    super()
+    this.state = {
+      userId  : firebase.auth().currentUser.email,
+      requestedItemsList : []
+    }
+  this.requestRef= null
+  }
+
+  getRequestedItemsList =()=>{
     this.requestRef = db.collection("requested_items")
     .onSnapshot((snapshot)=>{
         var requestedItemsList = snapshot.docs.map((doc) => doc.data())
@@ -24,6 +25,7 @@ export default class ItemDisplayScreen extends Component{
     })
     }
 
+
   componentDidMount(){
     this.getRequestedItemsList()
   }
@@ -31,7 +33,9 @@ export default class ItemDisplayScreen extends Component{
   componentWillUnmount(){
     this.requestRef();
   }
+
   keyExtractor = (item, index) => index.toString()
+
   renderItem = ( {item, i} ) =>{
     return (
       <ListItem
@@ -42,7 +46,7 @@ export default class ItemDisplayScreen extends Component{
         rightElement={
             <TouchableOpacity style={styles.button}
               onPress ={()=>{
-            this.props.navigation.navigate("RecieverDetails",{"details": item})
+this.props.navigation.navigate("RecieverDetails",{"details": item})
               }}
               >
               <Text style={{color:'#ffff'}}>Exchange</Text>
@@ -56,13 +60,13 @@ export default class ItemDisplayScreen extends Component{
   render(){
     return(
       <View style={{flex:1}}>
-        <MyHeader title="Exchange Items" navigation ={this.props.navigation}/>
-        <View style={{flex:1}}>
+<MyHeader title="Exchange Items" navigation ={this.props.navigation}/>
+<View style={{flex:1}}>
           {
             this.state.requestedItemsList.length === 0
             ?(
               <View style={styles.subContainer}>
-                <Text style={{ fontSize: 20}}>List Of All barters</Text>
+                <Text style={{ fontSize: 20}}>List Of All Requested Items</Text>
               </View>
             )
             :(
@@ -78,24 +82,24 @@ export default class ItemDisplayScreen extends Component{
     )
   }
 }
+
 const styles = StyleSheet.create({
-    subContainer:{
-      flex:1,
-      fontSize: 20,
-      justifyContent:'center',
-      alignItems:'center'
-    },
-    button:{
-      width:100,
-      height:30,
-      justifyContent:'center',
-      alignItems:'center',
-      backgroundColor:"#ff5722",
-      shadowColor: "#000",
-      shadowOffset: {
-         width: 0,
-         height: 8
-       }
-    }
-  })
-  
+  subContainer:{
+    flex:1,
+    fontSize: 20,
+    justifyContent:'center',
+    alignItems:'center'
+  },
+  button:{
+    width:100,
+    height:30,
+    justifyContent:'center',
+    alignItems:'center',
+    backgroundColor:"#ff5722",
+    shadowColor: "#000",
+    shadowOffset: {
+       width: 0,
+       height: 8
+     }
+  }
+})

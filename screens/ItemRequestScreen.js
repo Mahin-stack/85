@@ -71,7 +71,7 @@ export default class ItemRequestScreen extends Component{
     style={styles.button}
     onPress={()=>{this.addRequest(this.state.itemName,this.state.description)}}
                 >
-                <Text>Adds</Text>
+                <Text>+ Add</Text>
               </TouchableOpacity>
             </KeyboardAvoidingView>
         </View>
