@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import { StyleSheet, View, FlatList,Text } from 'react-native';
 import { ListItem, Icon } from 'react-native-elements';
@@ -14,27 +13,25 @@ export default class NotificationScreen extends Component{
       userId :  firebase.auth().currentUser.email,
       allNotifications : []
     };
-
     this.requestRef = null
   }
 
-  getNotifications=()=>{
-    this.requestRef = db.collection("all_notifications")
-    .where("notification_status", "==", "unread")
-    .where("userId",'==',this.state.userId)
-    .onSnapshot((snapshot)=>{
+    getNotifications=()=>{
+      this.requestRef = db.collection("all_notifications")
+      .where("notification_status", "==", "unread")
+      .where("targeted_user_id",'==',this.state.userId)
+      .onSnapshot((snapshot)=>{
       var allNotifications =  []
       snapshot.docs.map((doc) =>{
-        var notification = doc.data()
-        notification["doc_id"] = doc.id
-        allNotifications.push(notification)
+      var notification = doc.data()
+      notification["doc_id"] = doc.id
+      allNotifications.push(notification)
       });
       this.setState({
-          allNotifications : allNotifications
+      allNotifications : allNotifications
       });
-    })
-  }
-
+      })
+    }
   componentDidMount(){
     this.getNotifications()
   }
@@ -48,13 +45,13 @@ export default class NotificationScreen extends Component{
   renderItem = ({item,index}) =>{
       return (
         <ListItem
-          key={index}
-          leftElement={<Icon name="book" type="font-awesome" color ='#696969'/>}
-          title={item.item_name}
-          titleStyle={{ color: 'black', fontWeight: 'bold' }}
-          subtitle={item.message}
-          bottomDivider
-        />
+        key={index}
+        leftElement={<Icon name="book" type="font-awesome" color ='#696969'/>}
+        title={item.item_name}
+        titleStyle={{ color: 'black', fontWeight: 'bold' }}
+        subtitle={item.message}
+        bottomDivider
+      />
       )
  }
 
@@ -63,15 +60,15 @@ export default class NotificationScreen extends Component{
     return(
       <View style={styles.container}>
         <View style={{flex:0.1}}>
-          <MyHeader title={"Notifications"} navigation={this.props.navigation}/>
+<MyHeader title={"Notifications"} navigation={this.props.navigation}/>
         </View>
         <View style={{flex:0.9}}>
           {
             this.state.allNotifications.length === 0
             ?(
-              <View style={{flex:1, justifyContent:'center', alignItems:'center'}}>
-                <Text style={{fontSize:25}}>You have no notifications</Text>
-              </View>
+          <View style={{flex:1, justifyContent:'center', alignItems:'center'}}>
+          <Text style={{fontSize:25}}>You have no notifications</Text>
+          </View>
             )
             :(
               <FlatList

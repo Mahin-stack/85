@@ -1,5 +1,6 @@
 import firebase from 'firebase';
 require('@firebase/firestore')
+
 var firebaseConfig = {
   apiKey: "AIzaSyBlfAlmqdgpnnX3UGZLmFuRPl3pmFSVao8",
   authDomain: "barterapp-d10d2.firebaseapp.com",
@@ -10,4 +11,5 @@ var firebaseConfig = {
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
+
 export default firebase.firestore();
