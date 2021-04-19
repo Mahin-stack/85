@@ -30,7 +30,7 @@ componentDidMount(){
     return(
       <View>
         <Icon name='bell' type='font-awesome' color='#696969' size={25}
-          onPress={() =>this.props.navigation.navigate('Notifications')}/>
+          onPress={() =>this.props.navigation.navigate('Notification')}/>
          <Badge
           value={this.state.value}
          containerStyle={{ position: 'absolute', top: -4, right: -4 }}/>
@@ -40,12 +40,12 @@ componentDidMount(){
 
   render(){
     return(
-<Header
-leftComponent={<Icon name='bars' type='font-awesome' color='#696969'  onPress={() => this.props.navigation.toggleDrawer()}/>}
-centerComponent={{ text: this.props.title, style: { color: '#90A5A9', fontSize:20,fontWeight:"bold", } }}
-rightComponent={<this.BellIconWithBadge {...this.props}/>}
-backgroundColor = "#eaf8fe"
-/>
+        <Header
+          leftComponent={<Icon name='bars' type='font-awesome' color='#696969'  onPress={() => this.props.navigation.toggleDrawer()}/>}
+          centerComponent={{ text: this.props.title, style: { color: '#90A5A9', fontSize:20,fontWeight:"bold", } }}
+          rightComponent={<this.BellIconWithBadge {...this.props}/>}
+          backgroundColor = "#eaf8fe"
+        />
 
 )
 }
